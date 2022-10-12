@@ -98,8 +98,13 @@
     "trending": "Home"
   },
   "register": {
-    "title": "Welcome",
-    "subtitle": "Register with"
+    "title": "Islamic watch",
+    "subtitle": "Register with",
+    "subtitle1": "login with",
+    "switch": "if you have an account",
+    "switch1": "Don't have an account ?",
+    "signin": "Sign In",
+    "signup": "Sign Up"
   },
   "profile": {
     "title": "Profile",
