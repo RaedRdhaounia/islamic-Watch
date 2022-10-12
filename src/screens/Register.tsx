@@ -71,7 +71,7 @@ const Register = () => {
             background
             resizeMode="cover"
             radius={sizes.cardRadius}
-            source={assets.background}
+            source={assets.backgroundMosque}
             height={sizes.height * 0.3}>
             <Text h4 center white marginBottom={sizes.md}>
               {t('register.title')}

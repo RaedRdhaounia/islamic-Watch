@@ -254,7 +254,7 @@ export interface ThemeAssets {
   logo: ImageSourcePropType;
   header: ImageSourcePropType;
   background: ImageSourcePropType;
-
+  backgroundMosque: ImageSourcePropType;
   card1: ImageSourcePropType;
   card2: ImageSourcePropType;
   card3: ImageSourcePropType;

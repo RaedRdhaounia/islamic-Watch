@@ -81,6 +81,7 @@ export const ASSETS: ThemeAssets = {
   logo: require('../assets/images/logo.png'),
   header: require('../assets/images/header.png'),
   background: require('../assets/images/background.png'),
+  backgroundMosque : require('../assets/images/background1.png'),
   ios: require('../assets/images/ios.png'),
   android: require('../assets/images/android.png'),
 
