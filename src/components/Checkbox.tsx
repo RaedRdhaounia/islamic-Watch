@@ -23,17 +23,22 @@ const Checkbox = ({
   const handlePress = useCallback(() => {
     onPress?.(!checked);
     setChecked(!checked);
-    updateDate(DateNowFormat(Date.now()));
+    
        /* haptic feedback onPress */
     if (haptic) {
       Haptics.selectionAsync();
     }
-    if(checked) {
+    // update time 
+    if(updateDate){
+      updateDate(DateNowFormat(Date.now()));
+       if(checked) {
       updateDate('')
       setrank(false)
     } else {
       setrank(true)
     }
+    }
+   
    
 
   }, [checked, haptic, setChecked, onPress]);
