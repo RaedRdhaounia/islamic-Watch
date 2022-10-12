@@ -218,7 +218,7 @@ const [change, setChange] = useState(true)
                 gradient={gradients.primary}
                 disabled={Object.values(isValid).includes(false)}>
                 <Text bold white transform="uppercase">
-                  {change? t('common.signup'): t('common.signin')}
+                  {change ? t('common.signup'): t('common.signin')}
                 </Text>
               </Button>
               <Block
