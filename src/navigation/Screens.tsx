@@ -14,12 +14,6 @@ export default () => {
 
   return (
     <Stack.Navigator screenOptions={screenOptions.stack}>
-      
-      <Stack.Screen
-        name="Auth"
-        component={Register}
-        options={{headerShown: false}}
-      />
       <Stack.Screen
         name="Home"
         component={Home}
