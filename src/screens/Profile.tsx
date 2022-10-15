@@ -54,7 +54,11 @@ const [userName, setUserName] = useState("user name")
               padding={sizes.sm}
               paddingBottom={sizes.l}
               radius={sizes.cardRadius}
-              source={backgroundImage}>
+              source={backgroundImage}
+              width={undefined}
+              height={undefined}
+
+              >
               <Button
                 row
                 flex={0}
