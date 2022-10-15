@@ -35,7 +35,6 @@ function CheckList({setRank}) {
     {name: 'Al-Moghreb', date: date4, updateDate: setDate4, Salat:dateSalat4,rank:rank4, setrank: setRank4},
     {name: 'Al-Icha', date: date5, updateDate: setDate5, Salat:dateSalat5,rank:rank5, setrank: setRank5},
   ];
-  console.log("Salat", Salat)
   useEffect(()=>{
       const url = `http://api.aladhan.com/v1/timingsByAddress?address=Gafsa,tunisia`
       const fetchaladhan = async() => {
@@ -58,7 +57,6 @@ function CheckList({setRank}) {
   },[])
   useEffect(()=>{const Calculate =() => {
    const checkedSalat =  Salat.filter(el => el.rank == true)
-   console.log("checkedSalat", checkedSalat)
     setRank(checkedSalat.length)
   }
   Calculate()

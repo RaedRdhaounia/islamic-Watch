@@ -2,6 +2,7 @@ import React from 'react';
 import {Dimensions, View} from 'react-native';
 import Text from './Text';
 import {ProgressChart} from 'react-native-chart-kit';
+import Watch from './utility/Watch';
 
 function Chart({Rank}) {
 
@@ -22,6 +23,7 @@ function Chart({Rank}) {
   };
   return (
     <View style={{margin: 5}}>
+      <Watch/>
       <Text size={16} center={true} p secondary={true} semibold={true}>
         Daily Pray progress
       </Text>

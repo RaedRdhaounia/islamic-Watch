@@ -14,7 +14,6 @@ const BadgeList = ({image, title, type, linkLabel}: IProduct) => {
   const {badges} = useData();
   const isHorizontal = type !== 'vertical';
   const CARD_WIDTH = (sizes.width - sizes.padding * 2 - sizes.sm) / 2;
-  console.log("badges", badges)
 
   return (
     <ScrollView style={{margin:15}}>

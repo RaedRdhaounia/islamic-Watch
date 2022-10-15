@@ -12,7 +12,6 @@ function Home() {
   const {assets, colors, sizes} = useTheme();
   const [show, setShow] = useState(false);
   const [Rank, setRank] =useState(0)
-  console.log("Rank", Rank)
   return (
     <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
       <TouchableOpacity
@@ -21,11 +20,9 @@ function Home() {
         <Image
         color={colors.success}
           radius={0}
-          radius={0}
           width={33}
           height={33}
           source={assets.calendar}
-          color={colors.dark}
         />
       </TouchableOpacity>
       <Chart Rank={Rank}/>

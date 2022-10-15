@@ -36,7 +36,7 @@ const Profile = () => {
   const [backgroundImage, setBackgroundImage] = useState(assets.background);
   const [userProfile, setUserProfile] = useState(user?.avatar);
   const [changeUserName, setChangeUserName] = useState(false)
-const [userName, setUserName] = useState("user name")
+  const [userName, setUserName] = useState("user name")
   const [changeBio, setChangeBio] = useState(false);
   const [bio, setBio] = useState(user?.about);
   return (
