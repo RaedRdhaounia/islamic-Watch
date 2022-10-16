@@ -206,7 +206,7 @@ export const ARTICLE_OPTIONS: IArticleOptions[] = [
     guests: 3,
     sleeping: {total: 2, type: 'bed'},
     price: 200,
-    user: USERS[0],
+    user: USERS[3],
     image:
       'https://images.unsplash.com/photo-1603034203013-d532350372c6?fit=crop&w=450&q=80',
   },
@@ -219,7 +219,7 @@ export const ARTICLE_OPTIONS: IArticleOptions[] = [
     guests: 1,
     sleeping: {total: 1, type: 'sofa'},
     price: 89,
-    user: USERS[0],
+    user: USERS[2],
     image:
       'https://images.unsplash.com/photo-1543489822-c49534f3271f?fit=crop&w=450&q=80',
   },

@@ -262,7 +262,8 @@ const Cards = () => {
           <Image
             resizeMode="cover"
             source={assets?.card2}
-            style={{width: '100%'}}
+            width="100%"
+            height="100%"
           />
           <Block padding={sizes.s} justify="space-between">
             <Text p marginBottom={sizes.s}>
@@ -273,7 +274,12 @@ const Cards = () => {
                 <Text p semibold marginRight={sizes.s} color={colors.link}>
                   Read Article
                 </Text>
-                <Image source={assets.arrow} color={colors.link} />
+                <Image
+                  source={assets.arrow}
+                  width="100%"
+                  height="100%"
+                  color={colors.link}
+                />
               </Block>
             </TouchableOpacity>
           </Block>
@@ -282,7 +288,8 @@ const Cards = () => {
           <Image
             resizeMode="cover"
             source={assets?.card3}
-            style={{width: '100%'}}
+            width="100%"
+            height="100%"
           />
           <Block padding={sizes.s} justify="space-between">
             <Text p marginBottom={sizes.s}>
@@ -293,7 +300,12 @@ const Cards = () => {
                 <Text p semibold marginRight={sizes.s} color={colors.link}>
                   Read Article
                 </Text>
-                <Image source={assets.arrow} color={colors.link} />
+                <Image
+                  source={assets.arrow}
+                  color={colors.link}
+                  width="100%"
+                  height="100%"
+                />
               </Block>
             </TouchableOpacity>
           </Block>
@@ -304,7 +316,8 @@ const Cards = () => {
         <Image
           resizeMode="cover"
           source={assets?.card4}
-          style={{width: '100%'}}
+          width="100%"
+          height="100%"
         />
         <Text
           h5
@@ -325,6 +338,8 @@ const Cards = () => {
         <Block row marginLeft={sizes.xs} marginBottom={sizes.xs}>
           <Image
             source={assets.avatar1}
+            width="100%"
+            height="100%"
             style={{width: sizes.xl, height: sizes.xl, borderRadius: sizes.s}}
           />
           <Block marginLeft={sizes.s}>
@@ -342,6 +357,8 @@ const Cards = () => {
         <Image
           background
           resizeMode="cover"
+          width="100%"
+          height="100%"
           source={assets.card5}
           radius={sizes.cardRadius}>
           <Block color="rgba(0,0,0,0.3)" padding={sizes.padding}>
@@ -361,6 +378,8 @@ const Cards = () => {
                   height: sizes.xl,
                   borderRadius: sizes.s,
                 }}
+                width="100%"
+                height="100%"
               />
               <Block marginLeft={sizes.s}>
                 <Text p white semibold>
@@ -398,7 +417,8 @@ const Gallery = () => {
         <Image
           resizeMode="cover"
           source={assets.carousel1}
-          style={{width: '100%'}}
+          width="100%"
+          height="100%"
         />
         <Text p secondary marginTop={sizes.sm}>
           Private Room • 1 Guests • 1 Sofa
@@ -428,55 +448,43 @@ const Gallery = () => {
             resizeMode="cover"
             source={assets?.photo1}
             marginBottom={IMAGE_MARGIN}
-            style={{
-              height: IMAGE_SIZE,
-              width: IMAGE_SIZE,
-            }}
+            width={IMAGE_SIZE}
+            height={IMAGE_SIZE}
           />
           <Image
             resizeMode="cover"
             source={assets?.photo2}
             marginBottom={IMAGE_MARGIN}
-            style={{
-              height: IMAGE_SIZE,
-              width: IMAGE_SIZE,
-            }}
+            width={IMAGE_SIZE}
+            height={IMAGE_SIZE}
           />
           <Image
             resizeMode="cover"
             source={assets?.photo3}
             marginBottom={IMAGE_MARGIN}
-            style={{
-              height: IMAGE_SIZE,
-              width: IMAGE_SIZE,
-            }}
+            width={IMAGE_SIZE}
+            height={IMAGE_SIZE}
           />
           <Image
             resizeMode="cover"
             source={assets?.photo4}
             marginBottom={IMAGE_MARGIN}
-            style={{
-              height: IMAGE_SIZE,
-              width: IMAGE_SIZE,
-            }}
+            width={IMAGE_SIZE}
+            height={IMAGE_SIZE}
           />
           <Image
             resizeMode="cover"
             source={assets?.photo5}
             marginBottom={IMAGE_MARGIN}
-            style={{
-              height: IMAGE_SIZE,
-              width: IMAGE_SIZE,
-            }}
+            width={IMAGE_SIZE}
+            height={IMAGE_SIZE}
           />
           <Image
             resizeMode="cover"
             source={assets?.photo6}
             marginBottom={IMAGE_MARGIN}
-            style={{
-              height: IMAGE_SIZE,
-              width: IMAGE_SIZE,
-            }}
+            width={IMAGE_SIZE}
+            height={IMAGE_SIZE}
           />
         </Block>
       </Block>
@@ -497,28 +505,23 @@ const Gallery = () => {
           <Image
             resizeMode="cover"
             source={assets?.photo1}
-            style={{
-              width: IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2,
-              height: IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN,
-            }}
+            width={ IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2}
+            height={IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN}
           />
           <Block marginLeft={sizes.m}>
             <Image
               resizeMode="cover"
               source={assets?.photo2}
               marginBottom={IMAGE_VERTICAL_MARGIN}
-              style={{
-                height: IMAGE_VERTICAL_SIZE,
-                width: IMAGE_VERTICAL_SIZE,
-              }}
+              height={IMAGE_VERTICAL_SIZE}
+              width={IMAGE_VERTICAL_SIZE}
             />
             <Image
               resizeMode="cover"
               source={assets?.photo3}
-              style={{
-                height: IMAGE_VERTICAL_SIZE,
-                width: IMAGE_VERTICAL_SIZE,
-              }}
+              
+            width={ IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2}
+            height={IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN}
             />
           </Block>
         </Block>
