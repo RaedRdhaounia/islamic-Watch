@@ -78,7 +78,8 @@ const [change, setChange] = useState(true)
             resizeMode="cover"
             radius={sizes.cardRadius}
             source={assets.backgroundMosque}
-            height={sizes.height * 0.3}>
+            height={sizes.height * 0.3}
+            width="100%">
             <Text h4 center white marginBottom={sizes.md}>
               {t('register.title')}
             </Text>
@@ -196,6 +197,9 @@ const [change, setChange] = useState(true)
               {/* checkbox terms */}
                <Block row flex={0} align="center" paddingHorizontal={sizes.sm}>
                 <Checkbox
+                 id="0"
+                 setrank
+                 updateDate={undefined}
                   marginRight={sizes.sm}
                   checked={registration?.agreed}
                   onPress={() =>handleChange({agree: !registration.agreed})}

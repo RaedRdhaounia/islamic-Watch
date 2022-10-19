@@ -8,18 +8,23 @@ function Chart({Rank}) {
 
   // each value represents a goal ring in Progress chart
   const data = {
-    labels: ['Chalange', 'Badges', 'Pray'], // optional
+    labels: ['Rank', 'Badges', 'Today'], // optional
     data: [0.6, 0.5, Rank*0.2],
   };
   const chartConfig = {
     backgroundGradientFrom: '#E9ECEF',
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#E9ECEF',
-    backgroundGradientToOpacity: 0.5,
+      labelColor: (opacity = 0.5) => `rgb(58, 65, 111, ${opacity})`,
     color: (opacity = 0.5) => `rgb(58, 65, 111, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
+    style:{ propsForDots: {
+      r: "6",
+      strokeWidth: "2",
+      stroke: "#ffa726"
+    }}
   };
   return (
     <View style={{margin: 5}}>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import * as Location from 'expo-location';
+import Text from './Text';
 
-export default function Locationfind() {
+export default function Locationfind({setCurrentLocation}) {
   const [location, setLocation] = useState("");
   const [errorMsg, setErrorMsg] = useState()
   useEffect(() => {
@@ -23,9 +24,10 @@ export default function Locationfind() {
           longitude,
         });
         for (let item of response) {
-          let address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`;
-        
+          console.log("item", item)
+          let address = `${item.city}, ${item.region}, ${item.country}`;
           setLocation(address)
+          setCurrentLocation(address)
         }
       } 
     } catch (error) {
@@ -41,10 +43,9 @@ export default function Locationfind() {
   } else if (location) {
     text = JSON.stringify(location);
   }
-
   return (
     <View >
-      <Text >{text}</Text>
+      <Text  white semibold center >{text}</Text>
     </View>
   );
 }

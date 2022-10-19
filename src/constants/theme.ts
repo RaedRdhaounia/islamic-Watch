@@ -30,15 +30,18 @@ export const WEIGHTS: ThemeWeights = {
   extrabold: Platform.OS === 'ios' ? '800' : 'normal',
   black: Platform.OS === 'ios' ? '900' : 'normal',
 };
-// icons imports 
+// icons imports
 export const ICONS: ThemeIcons = {
   apple: require('../assets/icons/apple.png'),
   google: require('../assets/icons/google.png'),
   facebook: require('../assets/icons/facebook.png'),
   arrow: require('../assets/icons/arrow.png'),
   articles: require('../assets/icons/articles.png'),
+  badge: require('../assets/icons/badge.png'),
+  challenge: require("../assets/icons/challenge.png"),
   basket: require('../assets/icons/basket.png'),
   bell: require('../assets/icons/bell.png'),
+  background: require('../assets/images/background1.jpg'),
   calendar: require('../assets/icons/calendar.png'),
   chat: require('../assets/icons/chat.png'),
   check: require('../assets/icons/check.png'),
@@ -70,6 +73,8 @@ export const ICONS: ThemeIcons = {
 };
 
 export const ASSETS: ThemeAssets = {
+  // backgroundMosque 
+  backgroundMosque: require("../assets/images/background1.jpg"),
   // fonts
   OpenSansLight: require('../assets/fonts/OpenSans-Light.ttf'),
   OpenSansRegular: require('../assets/fonts/OpenSans-Regular.ttf'),

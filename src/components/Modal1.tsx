@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
+import React from 'react';
+import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import { COLORS } from '../constants/light';
 import Calender from './Calender';
 
-const Modal1 = ({show, setShow}) => {
- 
+const Modal1 = ({show, setShow, setStatisticsDay}) => {
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={show}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setShow(!show);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Calender show={show} setShow={setShow} />
-          </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={show}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+      }}>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setShow(!show)}>
+            <Text style={styles.textStyle}>close</Text>
+          </Pressable>
+          <Calender setStatisticsDay={setStatisticsDay} />
         </View>
-      </Modal>
-
-    </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -34,30 +35,30 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    borderRadius: 20,
     padding: 35,
     alignItems: 'center',
-
+   
   },
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    marginBottom:10
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: COLORS.dark,
   },
   textStyle: {
-    color: 'white',
+    color: "white",
     fontWeight: 'bold',
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: 150,
     textAlign: 'center',
   },
 });
-export default Modal1
+export default Modal1;

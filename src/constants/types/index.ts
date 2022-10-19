@@ -44,7 +44,15 @@ export interface IArticle {
   timestamp?: number;
   onPress?: (event?: any) => void;
 }
-
+export interface IChallenge {
+  id?: number;
+  title?: string;
+  description?: string;
+  image?: string;
+  timestamp?: number;
+  status?: "in progress" | "not started" | "success" | "failed" | "abondanned";
+  friends: String[];
+}
 export interface IProduct {
   id?: number;
   title?: string;
@@ -60,6 +68,8 @@ export interface ILocation {
   country?: string;
 }
 export interface IUseData {
+  badges: IProduct[];
+  challenges:IChallenge[];
   isDark: boolean;
   handleIsDark: (isDark?: boolean) => void;
   theme: ITheme;

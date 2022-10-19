@@ -1,10 +1,7 @@
 import React, {useCallback, useState} from 'react';
 
 import {useData, useTheme, useTranslation} from '../hooks/';
-import {Block, Button, Image, Product, Text} from '../components/';
-import Share from '../components/Share';
-import Calender from '../components/Calender';
-import { View } from 'react-native';
+import {Block, Button, Image, Text} from '../components/';
 import SwitchTab from '../components/SwitchTab';
 
 const Home = () => {
@@ -14,7 +11,7 @@ const Home = () => {
   const [products, setProducts] = useState(badges);
   const {assets, colors, fonts, gradients, sizes} = useTheme();
 
-  const handleProducts = useCallback(
+  const handleHome = useCallback(
     (tab: number) => {
       setTab(tab);
       setProducts(tab === 0 ? badges : trending);
@@ -25,7 +22,7 @@ const Home = () => {
   return (
     <Block>
       {/* Home list */}
-      <SwitchTab tab={tab} products={products}  />
+      <SwitchTab tab={tab} products={products} />
       {/* toggle products list */}
       <Block
         row
@@ -34,7 +31,7 @@ const Home = () => {
         justify="center"
         color={colors.card}
         paddingBottom={sizes.sm}>
-                 <Button onPress={() => handleProducts(1)}>
+        <Button onPress={() => handleHome(1)}>
           <Block row align="center">
             <Block
               flex={0}
@@ -48,7 +45,9 @@ const Home = () => {
               <Image
                 radius={0}
                 color={colors.white}
-                source={assets.documentation}
+                source={assets.bell}
+                width={16}
+                height={16}
               />
             </Block>
             <Text p font={fonts?.[tab === 1 ? 'medium' : 'normal']}>
@@ -63,7 +62,7 @@ const Home = () => {
           marginHorizontal={sizes.sm}
           height={sizes.socialIconSize}
         />
-        <Button onPress={() => handleProducts(0)}>
+        <Button onPress={() => handleHome(0)}>
           <Block row align="center">
             <Block
               flex={0}
@@ -74,7 +73,13 @@ const Home = () => {
               width={sizes.socialIconSize}
               height={sizes.socialIconSize}
               gradient={gradients?.[tab === 0 ? 'primary' : 'secondary']}>
-              <Image source={assets.document} color={colors.white} radius={0} />
+              <Image
+                source={assets.document}
+                color={colors.white}
+                radius={0}
+                width={16}
+                height={16}
+              />
             </Block>
             <Text p font={fonts?.[tab === 0 ? 'medium' : 'normal']}>
               {t('home.following')}

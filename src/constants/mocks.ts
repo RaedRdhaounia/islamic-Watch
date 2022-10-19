@@ -9,6 +9,7 @@ import {
   INotification,
   IProduct,
   IUser,
+  IChallenge
 } from './types';
 
 // users
@@ -96,7 +97,7 @@ const getrandom= (items: any[]) => {
   return items[Math.floor(Math.random()*items.length)];
 }
 
-// following cards
+// badges list
 export const Badges: IProduct[] = [
   {
     id: 1,
@@ -132,6 +133,51 @@ export const Badges: IProduct[] = [
     type: 'horizontal',
     title: 'badge title 6',
     image:getrandom(ImagesISlamic) 
+  },
+];
+
+// challenge list
+export const Challenges: IChallenge[] = [
+  {
+    id: 1,
+    title: 'challenge title 1',
+    friends: ["raed"],
+    image:getrandom(ImagesISlamic),
+    status: "in progress"  },
+  {
+    id: 2,
+    title: 'challenge title 2',
+    friends: ["raed"],
+    image:getrandom(ImagesISlamic) ,
+    status: "success"
+  },
+  {
+    id: 3,
+    title: 'challenge title 3',
+    friends: ["Mohammed"],
+    image:getrandom(ImagesISlamic),
+    status: "failed" 
+  },
+  {
+    id: 4,
+    title: 'challenge title4',
+    friends: [],
+    image:getrandom(ImagesISlamic),
+    status:"not started" 
+  },
+  {
+    id: 5,
+    title: 'challenge title 5',
+    friends: ["Mohammed","raed"],
+    image:getrandom(ImagesISlamic),
+    status: "in progress"
+  },
+  {
+    id: 6,
+    title: 'challenge title 6',
+    friends: [],
+    image:getrandom(ImagesISlamic),
+    status:"not started" 
   },
 ];
 
@@ -712,6 +758,7 @@ export const NOTIFICATIONS: INotification[] = [
 export default {
   USERS,
   Badges,
+  Challenges,
   TRENDING,
   CATEGORIES,
   ARTICLES,

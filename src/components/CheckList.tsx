@@ -6,10 +6,13 @@ import Block from './Block';
 import Checkbox from './Checkbox';
 import Text from './Text';
 import {Feather, FontAwesome, Ionicons} from '@expo/vector-icons';
+import Locationfind from './Locationfind';
 
 function CheckList({setRank}) {
   const {t} = useTranslation();
   const {sizes, colors} = useTheme();
+  const [surrentLocation, setCurrentLocation] = useState(null)
+
   const isHorizontal = true;
   const CARD_WIDTH = (sizes.width - sizes.padding * 2 - sizes.sm) / 2;
   const [date1, setDate1] = useState('');
@@ -76,7 +79,7 @@ function CheckList({setRank}) {
     },
   ];
   useEffect(() => {
-    const url = `http://api.aladhan.com/v1/timingsByAddress?address=Gafsa,tunisia`;
+    const url = surrentLocation ? `http://api.aladhan.com/v1/timingsByAddress?address=${surrentLocation}` :"";
     const fetchaladhan = async () => {
       setLoading(true);
       try {
@@ -95,7 +98,7 @@ function CheckList({setRank}) {
     };
 
     fetchaladhan();
-  }, []);
+  }, [surrentLocation]);
   useEffect(() => {
     const Calculate = () => {
       const checkedSalat = Salat.filter((el) => el.rank == true);
@@ -118,6 +121,9 @@ function CheckList({setRank}) {
           <Text align="center" paddingBottom={5} semibold>
             confirm your daily Salat
           </Text>
+          <Locationfind setCurrentLocation={setCurrentLocation} />
+
+
           <View
             style={{
               flex: 1,
