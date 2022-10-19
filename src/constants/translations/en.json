@@ -56,7 +56,6 @@
     "native": "watch",
     "link": "creative-tim.com"
   },
-  "darkMode": "Dark Mode",
   "screens": {
     "home": "Home",
     "components": "Components",
@@ -65,9 +64,12 @@
     "profile": "Profile",
     "settings": "Settings",
     "register": "Create account",
+    "Badge": "Badge",
+    "Chalange": "Chalange",
     "extra": "Extra - Automotive"
   },
   "navigation": {
+    "ChalangeList":"ChalangeList",
     "BadgeList":"Badge List",
     "home": "Islamic Watch",
     "components": "Components",
@@ -88,9 +90,11 @@
     "shopping": "Shopping Cart"
   },
   "menu": {
+    "utilities": "Utility",
     "setting": "setting",
-    "started": "Getting Started",
-    "logout": "logout"
+    "started": "Watch version",
+    "logout": "logout",
+    "language": "language"
   },
   "home": {
     "title": "Islamic watch",
@@ -123,5 +127,6 @@
     "appTemplate": "Soft UI PRO React Native is an innovative app template that will help you built stunning mobile applications in no time. It features a huge number of components and screens built to fit together and look amazing:",
     "saveTime": "This modern app template will save you a lot of time going from prototyping to full-functional code, because all elements are implemented. We wanted the design process to be seamless, so switching from image to the real page is very easy to do!",
     "buyNow": "Buy now"
-  }
+  },
+  "darkMode": "Dark Mode"
 }

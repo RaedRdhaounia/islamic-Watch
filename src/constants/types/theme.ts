@@ -207,14 +207,17 @@ export interface ThemeWeights {
   black?: TextStyle['fontWeight'];
 }
 export interface ThemeIcons {
+  background: ImageSourcePropType;
   apple: ImageSourcePropType;
   google: ImageSourcePropType;
   facebook: ImageSourcePropType;
   arrow: ImageSourcePropType;
   articles: ImageSourcePropType;
+  badge: ImageSourcePropType;
   basket: ImageSourcePropType;
   bell: ImageSourcePropType;
   calendar: ImageSourcePropType;
+  challenge: ImageSourcePropType;
   chat: ImageSourcePropType;
   check: ImageSourcePropType;
   clock: ImageSourcePropType;
@@ -250,7 +253,7 @@ export interface ThemeAssets {
   OpenSansSemiBold?: any;
   OpenSansExtraBold?: any;
   OpenSansBold?: any;
-
+  backgroundMosque: ImageSourcePropType;
   logo: ImageSourcePropType;
   header: ImageSourcePropType;
   background: ImageSourcePropType;

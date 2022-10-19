@@ -22,14 +22,19 @@ const Article = ({
   const {t} = useTranslation();
   const {colors, gradients, icons, sizes} = useTheme();
 
-  // render card for Newest & Fashion
+  // render card for Newest & Near
   if (category?.id !== 1) {
     return (
       <TouchableWithoutFeedback onPress={onPress}>
         <Block card padding={sizes.sm} marginTop={sizes.sm}>
-          <Image height={170} resizeMode="cover" source={{uri: image}} />
+          <Image
+            height={170}
+            resizeMode="cover"
+            source={{uri: image}}
+            width={'100%'}
+          />
           {/* article category */}
-          {category?.name && category.name != "Yours" && (
+          {category?.name && category.name != 'Yours' && (
             <Text
               h5
               bold
@@ -79,14 +84,24 @@ const Article = ({
           {/* location & rating */}
           {(Boolean(location) || Boolean(rating)) && (
             <Block row align="center">
-              <Image source={icons.location} marginRight={sizes.s} />
+              <Image
+                source={icons.location}
+                marginRight={sizes.s}
+                width=""
+                height=""
+              />
               <Text p size={12} semibold>
                 {location?.city}, {location?.country}
               </Text>
               <Text p bold marginHorizontal={sizes.s}>
                 •
               </Text>
-              <Image source={icons.star} marginRight={sizes.s} />
+              <Image
+                source={icons.star}
+                marginRight={sizes.s}
+                width=""
+                height=""
+              />
               <Text p size={12} semibold>
                 {rating}/5
               </Text>

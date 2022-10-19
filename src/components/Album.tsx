@@ -9,7 +9,6 @@ import Text from './Text';
 
 function Album(props) {
   const {header, nav, from} = props;
-  console.log("from", from)
   const navigation = useNavigation();
   const {assets, colors, sizes} = useTheme();
   const {t} = useTranslation();

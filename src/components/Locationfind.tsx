@@ -1,25 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import * as Location from 'expo-location';
+import Text from './Text';
 
-export default function Locationfind() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-console.log('location', location)
+export default function Locationfind({setCurrentLocation}) {
+  const [location, setLocation] = useState("");
+  const [errorMsg, setErrorMsg] = useState()
   useEffect(() => {
     (async () => {
-      
+        try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       console.log("status", status)
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
       }
-      try {
-         let location = await Location.getCurrentPositionAsync({});
-      console.log("location2", location)
-      setLocation(location);
-      } catch (error) {
+    
+         let {coords} = await Location.getCurrentPositionAsync();
+      if (coords) {
+        const { latitude, longitude } = coords;
+        let response = await Location.reverseGeocodeAsync({
+          latitude,
+          longitude,
+        });
+        for (let item of response) {
+          console.log("item", item)
+          let address = `${item.city}, ${item.region}, ${item.country}`;
+          setLocation(address)
+          setCurrentLocation(address)
+        }
+      } 
+    } catch (error) {
         console.log("error", error)
       }
      
@@ -32,10 +43,9 @@ console.log('location', location)
   } else if (location) {
     text = JSON.stringify(location);
   }
-
   return (
     <View >
-      <Text >{text}</Text>
+      <Text  white semibold center >{text}</Text>
     </View>
   );
 }

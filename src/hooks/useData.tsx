@@ -8,11 +8,13 @@ import {
   IUser,
   IUseData,
   ITheme,
+  IChallenge
 } from '../constants/types';
 
 import {
   USERS,
   Badges,
+  Challenges,
   TRENDING,
   CATEGORIES,
   ARTICLES,
@@ -27,6 +29,7 @@ export const DataProvider = ({children}: {children: React.ReactNode}) => {
   const [user, setUser] = useState<IUser>(USERS[0]);
   const [users, setUsers] = useState<IUser[]>(USERS);
   const [badges, setBages] = useState<IProduct[]>(Badges);
+  const [challenges, setChallenges] = useState<IChallenge[]>(Challenges);
   const [trending, setTrending] = useState<IProduct[]>(TRENDING);
   const [categories, setCategories] = useState<ICategory[]>(CATEGORIES);
   const [articles, setArticles] = useState<IArticle[]>(ARTICLES);
@@ -106,6 +109,8 @@ export const DataProvider = ({children}: {children: React.ReactNode}) => {
     users,
     handleUsers,
     handleUser,
+    challenges,
+    setChallenges,
     badges,
     setBages,
     trending,

@@ -5,7 +5,7 @@ import Pray from '../screens/Home/Pray';
 import Block from './Block';
 
 
-function SwitchTab({tab, products}) {
+function SwitchTab({tab , products}) {
   const {sizes} = useTheme();
   return (  <Block
       scroll

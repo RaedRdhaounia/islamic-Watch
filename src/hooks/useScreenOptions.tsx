@@ -35,7 +35,13 @@ export default () => {
     ),
     headerLeft: () => (
       <Button onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-        <Image source={icons.menu} radius={0} color={colors.icon} />
+        <Image
+          source={icons.menu}
+          radius={0}
+          color={colors.icon}
+          width={16}
+          height={16}
+        />
       </Button>
     ),
     headerRight: () => (
@@ -44,10 +50,16 @@ export default () => {
           style={{marginRight: sizes.sm}}
           onPress={() =>
             navigation.navigate('Screens', {
-              screen: 'Pro',
+              screen: 'Notification',
             })
           }>
-          <Image source={icons.bell} radius={0} color={colors.icon} /> 
+          <Image
+            source={icons.bell}
+            radius={0}
+            color={colors.icon}
+            width={16}
+            height={16}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -55,8 +67,7 @@ export default () => {
               screen: 'Profile',
             })
           }>
-          <Image source={icons.profile} radius={0}  />
-
+          <Image source={icons.profile} radius={0} width={16} height={16} />
         </TouchableOpacity>
       </Block>
     ),
@@ -75,7 +86,13 @@ export default () => {
       headerLeft: () => (
         <Button
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-          <Image source={icons.menu} radius={0} color={colors.white} />
+          <Image
+            source={icons.menu}
+            radius={0}
+            color={colors.white}
+            width={16}
+            height={16}
+          />
         </Button>
       ),
     },
@@ -91,7 +108,13 @@ export default () => {
       headerLeft: () => (
         <Button
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-          <Image source={icons.menu} radius={0} color={colors.white} />
+          <Image
+            source={icons.menu}
+            radius={0}
+            color={colors.white}
+            width={16}
+            height={16}
+          />
         </Button>
       ),
     },
@@ -119,10 +142,16 @@ export default () => {
             style={{marginRight: sizes.sm}}
             onPress={() =>
               navigation.navigate('Screens', {
-                screen: 'Notifications',
+                screen: 'Notification',
               })
             }>
-            <Image source={icons.bell} radius={0} color={colors.icon} />
+            <Image
+              source={icons.bell}
+              radius={0}
+              color={colors.icon}
+              width={16}
+              height={16}
+            />
             <Block
               flex={0}
               right={0}
