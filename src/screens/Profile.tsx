@@ -121,7 +121,7 @@ const Profile = () => {
                 )}
               </View>
               {/* location component */}
-              <Locationfind />
+              <Locationfind setCurrentLocation={undefined} />
               {/* social media component */}
               <Block row marginVertical={sizes.m}>
                 <Button

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 import * as Location from 'expo-location';
 import Text from './Text';
@@ -11,7 +11,6 @@ export default function Locationfind({setCurrentLocation}) {
     (async () => {
         try {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      console.log("status", status)
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
       }
@@ -24,14 +23,14 @@ export default function Locationfind({setCurrentLocation}) {
           longitude,
         });
         for (let item of response) {
-          console.log("item", item)
           let address = `${item.city}, ${item.region}, ${item.country}`;
           setLocation(address)
-          setCurrentLocation(address)
+         setCurrentLocation(address)
         }
       } 
+      return;
     } catch (error) {
-        console.log("error", error)
+       console.log("error", error)
       }
      
     })();

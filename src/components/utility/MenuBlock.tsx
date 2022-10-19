@@ -8,21 +8,22 @@ import Text from '../Text';
 function MenuBlock(props) {
   const {active, itemlist, handleNavigation, header} = props;
   const {sizes, colors, gradients} = useTheme();
-  const {t} = useTranslation()
+  const {t} = useTranslation();
   return (
     <Block>
-         {header?  <Text semibold transform="uppercase" opacity={0.5}>
+      {header ? (
+        <Text semibold transform="uppercase" opacity={0.5}>
           {header}
-        </Text>: null}
-      {itemlist?.map((item : Object, index: Number) => {
-        const isActive = active === item.to 
+        </Text>
+      ) : null}
+      {itemlist?.map((item: Object, index: Number) => {
+        const isActive = active === item.to;
         return (
-          <Block>
+          <Block key={`menu-screen-${item.name}-${index}`}>
             <Button
               row
               justify="flex-start"
               marginBottom={sizes.s}
-              key={`menu-screen-${item.name}-${index}`}
               onPress={() => handleNavigation(item.to)}>
               <Block
                 flex={0}
@@ -56,7 +57,7 @@ function MenuBlock(props) {
         marginVertical={sizes.sm}
         gradient={gradients.menu}
       />
-    </Block> 
+    </Block>
   );
 }
 

@@ -9,7 +9,6 @@ function Calender({setStatisticsDay}) {
   const {colors} = useTheme();
   const thisDay = Date.now();
   const [dayPress, setDayPress] = useState(formatDate(thisDay));
-  console.log('dayPress', dayPress);
   const [monthPress, setMonthPress] = useState(currentMounth(thisDay));
   return (
     <View style={{width: 300, height: 300}}>
@@ -39,7 +38,6 @@ function Calender({setStatisticsDay}) {
           dayPress: {selected: true, marked: true, selectedColor: 'blue'},
         }}
         dayComponent={({date, state}) => {
-          console.log('state day', date, state);
           return date?.dateString == dayPress ? (
             <Pressable style={[styles.button, styles.buttonToday]}>
               <Text
