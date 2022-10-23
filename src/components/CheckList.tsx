@@ -78,7 +78,6 @@ function CheckList({setRank}) {
       icon: <Ionicons name="moon-outline" size={18} color="black" />,
     },
   ];
-  console.log("surrentLocation", surrentLocation)
   useEffect(() => {
     const url = surrentLocation ? `http://api.aladhan.com/v1/timingsByAddress?address=${surrentLocation}` :"";
     const fetchaladhan = async () => {

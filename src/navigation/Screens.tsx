@@ -21,6 +21,7 @@ export default () => {
   const {t} = useTranslation(); //  distract translator from useTranslation hooks
   const screenOptions = useScreenOptions(); // extract methode  
   return ( 
+    
     <Stack.Navigator screenOptions={screenOptions.stack}>
       <Stack.Screen 
         name="Auth"

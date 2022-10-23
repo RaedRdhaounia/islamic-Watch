@@ -82,8 +82,6 @@ const DrawerContent = (
     [navigation, setActive],
   );
 
-  const handleWebLink = useCallback((url) => Linking.openURL(url), []);
-
   // screen list for Drawer menu
   const screens = [
     {name: t('screens.home'), to: 'Home', icon: assets.home},

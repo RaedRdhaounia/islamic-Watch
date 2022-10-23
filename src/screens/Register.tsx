@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Linking, Platform} from 'react-native';
+import {Alert, Linking, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import {useData, useTheme, useTranslation} from '../hooks/';
 import * as regex from '../constants/regex';
 import {Block, Button, Input, Image, Text, Checkbox} from '../components/';
-
+import { CreateAccount } from '../service/api/auth_signup_password';
 const isAndroid = Platform.OS === 'android';
 
 interface IRegistration {
@@ -22,9 +22,11 @@ interface IRegistrationValidation {
 }
 
 const Register = () => {
+const [user, setUser] =useState(null)
   const {isDark} = useData();
   const {t} = useTranslation();
   const navigation = useNavigation();
+  const [change, setChange] = useState(true)
   const [isValid, setIsValid] = useState<IRegistrationValidation>({
     name: false,
     email: false,
@@ -45,20 +47,28 @@ const Register = () => {
     },
     [setRegistration],
   );
-
-  const handleSignUp = useCallback(() => {
-    if (!Object.values(isValid).includes(false)) {
-      /** send/save registratin data */
-      console.log('handleSignUp', registration);
-    }
-  }, [isValid, registration]);
-  const handleSignIn = useCallback(() => {
-    if (!Object.values(isValid).includes(false)) {
-      /** send/save registratin data */
-      navigation.navigate("Home")
-    }
-    navigation.navigate("Home")
-  }, []);
+    const handleSumbit = useCallback(async(change) => {
+      if(!Object.values(isValid).includes(false)) {
+        if (change == true) {
+         const result = await CreateAccount(registration.email, registration.password, setUser)
+           navigation.navigate("Home", {userDetails: result})
+        } else {
+          handleSignIn()
+        }
+      } else {
+        Alert.alert("Wrong Information",
+        "please check your information and retry",
+        [
+          
+          { text: "OK" }
+        ])
+      }
+      
+    }, [isValid, registration]);
+  async function handleSignUp () {
+  };
+  const handleSignIn = () => {
+  }
   useEffect(() => {
     setIsValid((state) => ({
       ...state,
@@ -68,7 +78,6 @@ const Register = () => {
       agreed: registration.agreed,
     }));
   }, [registration, setIsValid]);
-const [change, setChange] = useState(true)
   return (
     <Block safe marginTop={sizes.md}>
       <Block paddingHorizontal={sizes.s}>
@@ -109,8 +118,8 @@ const [change, setChange] = useState(true)
                 {change? t('register.subtitle'):t('register.subtitle1') }
               </Text>
               {/* social buttons */}
-              <Block row center justify="space-evenly" marginVertical={sizes.m}>
-                <Button outlined gray shadow={!isAndroid}>
+              <Block row center justify="space-evenly" marginVertical={sizes.m} >
+                <Button outlined gray shadow={!isAndroid} onPress={() => console.log("google facebook")}>
                   <Image
                     source={assets.facebook}
                     height={sizes.m}
@@ -118,7 +127,7 @@ const [change, setChange] = useState(true)
                     color={isDark ? colors.icon : undefined}
                   />
                 </Button>
-                <Button outlined gray shadow={!isAndroid}>
+                <Button outlined gray shadow={!isAndroid} onPress={() => console.log("google apple")}>
                   <Image
                     source={assets.apple}
                     height={sizes.m}
@@ -126,7 +135,7 @@ const [change, setChange] = useState(true)
                     color={isDark ? colors.icon : undefined}
                   />
                 </Button>
-                <Button outlined gray shadow={!isAndroid}>
+                <Button outlined gray shadow={!isAndroid} onPress={() => console.log("google signIn")}>
                   <Image
                     source={assets.google}
                     height={sizes.m}
@@ -164,7 +173,7 @@ const [change, setChange] = useState(true)
               </Block>
               {/* form inputs */}
               <Block paddingHorizontal={sizes.sm}>
-                <Input
+                {change ?<Input
                   autoCapitalize="none"
                   marginBottom={sizes.m}
                   label={t('common.name')}
@@ -172,10 +181,10 @@ const [change, setChange] = useState(true)
                   success={Boolean(registration.name && isValid.name)}
                   danger={Boolean(registration.name && !isValid.name)}
                   onChangeText={(value) =>  handleChange({name: value})}
-                />
+                /> : null}
                 <Input
                   autoCapitalize="none"
-                  marginBottom={sizes.m}
+                  marginBottom={change ? sizes.m: sizes.h1}
                   label={t('common.email')}
                   keyboardType="email-address"
                   placeholder={t('common.emailPlaceholder')}
@@ -186,7 +195,7 @@ const [change, setChange] = useState(true)
                 <Input
                   secureTextEntry
                   autoCapitalize="none"
-                  marginBottom={sizes.m}
+                  marginBottom={change ? sizes.m: sizes.h1}
                   label={t('common.password')}
                   placeholder={t('common.passwordPlaceholder')}
                   onChangeText={(value) => handleChange({password: value})}
@@ -216,7 +225,7 @@ const [change, setChange] = useState(true)
                 </Text>
               </Block>
               <Button
-                onPress={() => {change? handleSignIn():handleSignUp()}}
+                onPress={() => handleSumbit(change)}
                 marginVertical={sizes.s}
                 marginHorizontal={sizes.sm}
                 gradient={gradients.primary}

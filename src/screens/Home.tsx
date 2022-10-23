@@ -4,7 +4,9 @@ import {useData, useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Text} from '../components/';
 import SwitchTab from '../components/SwitchTab';
 
-const Home = () => {
+const Home = ({route}) => {
+  const details = route?.params
+  console.log("details", details)
   const {t} = useTranslation();
   const [tab, setTab] = useState<number>(1);
   const {badges, trending} = useData();

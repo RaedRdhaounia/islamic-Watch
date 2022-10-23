@@ -5,7 +5,7 @@ import NotificationItem from '../components/NotificationItem';
 import {useTheme} from '../hooks';
 
 function Notification() {
-  const width = Dimensions.get("screen").width
+  const width = Dimensions.get('screen').width;
   const {sizes} = useTheme();
   const fakeNotifications = [{id: '1'}, {id: '2'}, {id: '3'}, {id: '4'}];
   return (
@@ -14,9 +14,9 @@ function Notification() {
         data={fakeNotifications}
         showsVerticalScrollIndicator={true}
         keyExtractor={(item) => `${item?.id}`}
-        style={{paddingHorizontal: sizes.base, width:width}}
+        style={{paddingHorizontal: sizes.base, width: width}}
         contentContainerStyle={{paddingBottom: sizes.l}}
-        renderItem={({item}) => <NotificationItem item={item} />}
+        renderItem={({item}) => <NotificationItem key={item.id} />}
       />
     </Block>
   );

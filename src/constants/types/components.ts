@@ -15,7 +15,7 @@ import {
   ViewProps,
   ViewStyle,
 } from 'react-native';
-import {BlurProps} from 'expo-blur';
+import {BlurViewProps} from 'expo-blur';
 import {LinearGradientPoint} from 'expo-linear-gradient';
 import {ISpacing, ITheme} from './theme';
 
@@ -196,12 +196,12 @@ export interface IBlockProps
    * BlueView intensity, default: 50, values accepted: 1 to 100
    * @see https://docs.expo.io/versions/latest/sdk/blur-view/#intensity
    */
-  intensity?: BlurProps['intensity'];
+  intensity?: BlurViewProps['intensity'];
   /**
    * BlueView tint color, default: 'default', values accepted: 'light', 'dark', 'default'
    * @see https://docs.expo.io/versions/latest/sdk/blur-view/#blurtint
    */
-  tint?: BlurProps['tint'];
+  tint?: BlurViewProps['tint'];
   /**
    * Renders the View position
    * @see https://reactnative.dev/docs/layout-props#position
@@ -523,7 +523,7 @@ export interface IImageProps extends ImageProps, ISpacing {
   /** width props for image */
   width : Number | undefined | String
   /** height props for image */
-  height : Number | undefined | | String
+  height : Number | undefined | String
 
 }
 
