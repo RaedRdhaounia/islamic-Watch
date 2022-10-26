@@ -1,41 +1,46 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Alert, Linking, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-
+import { useDispatch, useSelector } from 'react-redux'
 import {useData, useTheme, useTranslation} from '../hooks/';
 import * as regex from '../constants/regex';
 import {Block, Button, Input, Image, Text, Checkbox} from '../components/';
-import { CreateAccount } from '../service/api/auth_signup_password';
+import {CreateAccount} from '../service/api/auth_signup_password';
+import { SignIn } from '../service/api/auth_signin_password';
+import { RootState } from '../redux/store';
+import { getUserDetails, loading, errors } from '../redux/user.reducer';
 const isAndroid = Platform.OS === 'android';
 
 interface IRegistration {
-  name: string;
   email: string;
   password: string;
   agreed: boolean;
 }
 interface IRegistrationValidation {
-  name: boolean;
   email: boolean;
   password: boolean;
   agreed: boolean;
 }
 
 const Register = () => {
-const [user, setUser] =useState(null)
+  const email = useSelector((state: RootState) => state.user.email)
+  const errors = useSelector((state: RootState) => state.user.error)
+  const dispatch = useDispatch()
+ // const email = props.route?.params?.otherParam
+  const [user, setUser] = useState({});
+  const [loadingAuth, setLoadingAuth] = useState(false);
+  const [error, setError] = useState('plese try again');
   const {isDark} = useData();
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const [change, setChange] = useState(true)
+  const [change, setChange] = useState(true);
   const [isValid, setIsValid] = useState<IRegistrationValidation>({
-    name: false,
     email: false,
     password: false,
     agreed: true,
   });
   const [registration, setRegistration] = useState<IRegistration>({
-    name: '',
-    email: '',
+    email: email || '',
     password: '',
     agreed: true,
   });
@@ -47,28 +52,55 @@ const [user, setUser] =useState(null)
     },
     [setRegistration],
   );
-    const handleSumbit = useCallback(async(change) => {
-      if(!Object.values(isValid).includes(false)) {
+  const handleSumbit = useCallback(
+    async (change) => {
+      if (!Object.values(isValid).includes(false)) {
         if (change == true) {
-         const result = await CreateAccount(registration.email, registration.password, setUser)
-           navigation.navigate("Home", {userDetails: result})
-        } else {
-          handleSignIn()
+          handleSignUp();
+        } if (change == false) {
+          handleSignIn();
         }
-      } else {
-        Alert.alert("Wrong Information",
-        "please check your information and retry",
-        [
-          
-          { text: "OK" }
-        ])
       }
-      
-    }, [isValid, registration]);
-  async function handleSignUp () {
-  };
-  const handleSignIn = () => {
+    },
+    [isValid, registration],
+  );
+  async function handleSignUp() {
+    let result;
+    dispatch(loading)
+     result = await CreateAccount(
+      registration.email,
+      registration.password,
+      setUser,
+      setError,
+      setLoadingAuth,
+    );
+    if (result) {
+      dispatch(getUserDetails(String(registration.email)))
+    } else {
+      dispatch(errors(String(error)))
+    }
+    !result
+      ? Alert.alert('Somthing is wrong', error)
+      : Alert.alert('Welcome', `${user?.email}`, [
+          {text: 'Welcome back', onPress: () => navigation.navigate('Home')},
+        ]);
   }
+  async function handleSignIn () {
+    const result = await SignIn(
+      registration.email,
+      registration.password,
+      setUser,
+      setError,
+      setLoadingAuth,
+    );
+    !result
+      ? Alert.alert('Somthing is wrong', error)
+      : Alert.alert('Welcome', `${user?.email}`, [
+          {text: 'Welcome back', onPress: () => navigation.navigate('Home')},
+        ]);
+ 
+  };
+  
   useEffect(() => {
     setIsValid((state) => ({
       ...state,
@@ -78,7 +110,182 @@ const [user, setUser] =useState(null)
       agreed: registration.agreed,
     }));
   }, [registration, setIsValid]);
-  return (
+  return (loadingAuth ?   <Block safe marginTop={sizes.md}>
+    <Block paddingHorizontal={sizes.s}>
+      <Block flex={0} style={{zIndex: 0}}>
+        <Image
+          background
+          resizeMode="cover"
+          radius={sizes.cardRadius}
+          source={assets.backgroundMosque}
+          height={sizes.height * 0.3}
+          width="100%">
+          <Text h4 center white marginBottom={sizes.md}>
+            {t('register.title')}
+          </Text>
+        </Image>
+      </Block>
+      {/* register form */}
+      <Block
+        keyboard
+        behavior={!isAndroid ? 'padding' : 'height'}
+        marginTop={-(sizes.height * 0.2 - sizes.l)}>
+        <Block
+          flex={0}
+          radius={sizes.sm}
+          marginHorizontal="8%"
+          shadow={!isAndroid} // disabled shadow on Android due to blur overlay + elevation issue
+        >
+          <Block
+            blur
+            flex={0}
+            intensity={90}
+            radius={sizes.sm}
+            overflow="hidden"
+            justify="space-evenly"
+            tint={colors.blurTint}
+            paddingVertical={sizes.sm}>
+            <Text p semibold center>
+              {change ? t('register.subtitle') : t('register.subtitle1')}
+            </Text>
+            {/* social buttons */}
+            <Block row center justify="space-evenly" marginVertical={sizes.m}>
+              <Button
+                outlined
+                gray
+                shadow={!isAndroid}>
+                <Image
+                  source={assets.facebook}
+                  height={sizes.m}
+                  width={sizes.m}
+                  color={isDark ? colors.icon : undefined}
+                />
+              </Button>
+              <Button
+                outlined
+                gray
+                shadow={!isAndroid}
+                >
+                <Image
+                  source={assets.apple}
+                  height={sizes.m}
+                  width={sizes.m}
+                  color={isDark ? colors.icon : undefined}
+                />
+              </Button>
+              <Button
+                outlined
+                gray
+                shadow={!isAndroid}>
+                <Image
+                  source={assets.google}
+                  height={sizes.m}
+                  width={sizes.m}
+                  color={isDark ? colors.icon : undefined}
+                />
+              </Button>
+            </Block>
+            <Block
+              row
+              flex={0}
+              align="center"
+              justify="center"
+              marginBottom={sizes.sm}
+              paddingHorizontal={sizes.xxl}>
+              <Block
+                flex={0}
+                height={1}
+                width="50%"
+                end={[1, 0]}
+                start={[0, 1]}
+                gradient={gradients.divider}
+              />
+              <Text center marginHorizontal={sizes.s}>
+                {t('common.or')}
+              </Text>
+              <Block
+                flex={0}
+                height={1}
+                width="50%"
+                end={[0, 1]}
+                start={[1, 0]}
+                gradient={gradients.divider}
+              />
+            </Block>
+            {/* form inputs */}
+            <Block paddingHorizontal={sizes.sm}>
+              {change ? (
+                <Input
+                disabled
+                  autoCapitalize="none"
+                  marginBottom={sizes.m}
+                  label={t('common.name')}
+                  placeholder={t('common.namePlaceholder')}
+                />
+              ) : null}
+              <Input
+                disabled
+                autoCapitalize="none"
+                marginBottom={change ? sizes.m : sizes.h1}
+                label={t('common.email')}
+                keyboardType="email-address"
+                placeholder={t('common.emailPlaceholder')}
+              />
+              <Input
+                disabled
+                autoCapitalize="none"
+                marginBottom={change ? sizes.m : sizes.h1}
+                label={t('common.password')}
+                placeholder={t('common.passwordPlaceholder')}
+              />
+            </Block>
+            {/* checkbox terms */}
+            <Block row flex={0} align="center" paddingHorizontal={sizes.sm}>
+              <Text paddingRight={sizes.s}>
+                {t('common.agree')}
+                <Text
+                  semibold
+                  >
+                  {t('common.terms')}
+                </Text>
+              </Text>
+            </Block>
+            <Text>loading ...</Text>
+            <Block
+              row
+              flex={0}
+              align="center"
+              justify="center"
+              marginBottom={sizes.sm}
+              paddingHorizontal={sizes.xxl}>
+              <Block
+                flex={0}
+                height={1}
+                width="50%"
+                end={[1, 0]}
+                start={[0, 1]}
+                gradient={gradients.divider}
+              />
+              <Text center marginHorizontal={sizes.s}>
+                {change ? t('register.switch') : t('register.switch1')}
+              </Text>
+              <Text color={colors.link}>
+                {change ? t('register.signin') : t('register.signup')}
+              </Text>
+              <Block
+                flex={0}
+                height={1}
+                width="50%"
+                end={[0, 1]}
+                start={[1, 0]}
+                gradient={gradients.divider}
+              />
+            </Block>
+          </Block>
+        </Block>
+      </Block>
+    </Block>
+  </Block> : 
     <Block safe marginTop={sizes.md}>
       <Block paddingHorizontal={sizes.s}>
         <Block flex={0} style={{zIndex: 0}}>
@@ -115,11 +322,15 @@ const [user, setUser] =useState(null)
               tint={colors.blurTint}
               paddingVertical={sizes.sm}>
               <Text p semibold center>
-                {change? t('register.subtitle'):t('register.subtitle1') }
+                {change ? t('register.subtitle') : t('register.subtitle1')}
               </Text>
               {/* social buttons */}
-              <Block row center justify="space-evenly" marginVertical={sizes.m} >
-                <Button outlined gray shadow={!isAndroid} onPress={() => console.log("google facebook")}>
+              <Block row center justify="space-evenly" marginVertical={sizes.m}>
+                <Button
+                  outlined
+                  gray
+                  shadow={!isAndroid}
+                  onPress={() => console.log("facebook")}>
                   <Image
                     source={assets.facebook}
                     height={sizes.m}
@@ -127,7 +338,11 @@ const [user, setUser] =useState(null)
                     color={isDark ? colors.icon : undefined}
                   />
                 </Button>
-                <Button outlined gray shadow={!isAndroid} onPress={() => console.log("google apple")}>
+                <Button
+                  outlined
+                  gray
+                  shadow={!isAndroid}
+                  onPress={() => console.log('apple')}>
                   <Image
                     source={assets.apple}
                     height={sizes.m}
@@ -135,7 +350,11 @@ const [user, setUser] =useState(null)
                     color={isDark ? colors.icon : undefined}
                   />
                 </Button>
-                <Button outlined gray shadow={!isAndroid} onPress={() => console.log("google signIn")}>
+                <Button
+                  outlined
+                  gray
+                  shadow={!isAndroid}
+                  onPress={() => console.log("google")}>
                   <Image
                     source={assets.google}
                     height={sizes.m}
@@ -173,18 +392,9 @@ const [user, setUser] =useState(null)
               </Block>
               {/* form inputs */}
               <Block paddingHorizontal={sizes.sm}>
-                {change ?<Input
-                  autoCapitalize="none"
-                  marginBottom={sizes.m}
-                  label={t('common.name')}
-                  placeholder={t('common.namePlaceholder')}
-                  success={Boolean(registration.name && isValid.name)}
-                  danger={Boolean(registration.name && !isValid.name)}
-                  onChangeText={(value) =>  handleChange({name: value})}
-                /> : null}
                 <Input
                   autoCapitalize="none"
-                  marginBottom={change ? sizes.m: sizes.h1}
+                  marginBottom={sizes.h1}
                   label={t('common.email')}
                   keyboardType="email-address"
                   placeholder={t('common.emailPlaceholder')}
@@ -195,7 +405,7 @@ const [user, setUser] =useState(null)
                 <Input
                   secureTextEntry
                   autoCapitalize="none"
-                  marginBottom={change ? sizes.m: sizes.h1}
+                  marginBottom={sizes.h1}
                   label={t('common.password')}
                   placeholder={t('common.passwordPlaceholder')}
                   onChangeText={(value) => handleChange({password: value})}
@@ -204,14 +414,14 @@ const [user, setUser] =useState(null)
                 />
               </Block>
               {/* checkbox terms */}
-               <Block row flex={0} align="center" paddingHorizontal={sizes.sm}>
+              <Block row flex={0} align="center" paddingHorizontal={sizes.sm}>
                 <Checkbox
-                 id="0"
-                 setrank
-                 updateDate={undefined}
+                  id="0"
+                  setrank
+                  updateDate={undefined}
                   marginRight={sizes.sm}
                   checked={registration?.agreed}
-                  onPress={() =>handleChange({agree: !registration.agreed})}
+                  onPress={() => handleChange({agree: !registration.agreed})}
                 />
                 <Text paddingRight={sizes.s}>
                   {t('common.agree')}
@@ -231,7 +441,7 @@ const [user, setUser] =useState(null)
                 gradient={gradients.primary}
                 disabled={Object.values(isValid).includes(false)}>
                 <Text bold white transform="uppercase">
-                  {change ? t('common.signup'): t('common.signin')}
+                  {change ? t('common.signup') : t('common.signin')}
                 </Text>
               </Button>
               <Block
@@ -250,9 +460,11 @@ const [user, setUser] =useState(null)
                   gradient={gradients.divider}
                 />
                 <Text center marginHorizontal={sizes.s}>
-                  {change? t('register.switch'):t('register.switch1')}
+                  {change ? t('register.switch') : t('register.switch1')}
                 </Text>
-                <Text color={colors.link} onPress={() => setChange(!change)}>{change? t('register.signin'): t('register.signup')}</Text>
+                <Text color={colors.link} onPress={() => setChange(!change)}>
+                  {change ? t('register.signin') : t('register.signup')}
+                </Text>
                 <Block
                   flex={0}
                   height={1}

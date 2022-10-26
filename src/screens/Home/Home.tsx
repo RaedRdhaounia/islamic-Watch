@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
+import { useSelector } from 'react-redux';
 import {Block, Image, Text} from '../../components';
 import Calender from '../../components/Calender';
 import Chart from '../../components/Chart';
@@ -8,8 +9,10 @@ import Locationfind from '../../components/Locationfind';
 import Modal1 from '../../components/Modal1';
 import Post from '../../components/Post';
 import {useTheme} from '../../hooks';
+import { RootState } from '../../redux/store';
 
 function Home() {
+  const email = useSelector((state: RootState) => state.user.email)
   const {assets, colors, sizes} = useTheme();
   const [show, setShow] = useState(false);
   const [Rank, setRank] = useState(0);

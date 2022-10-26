@@ -13,6 +13,9 @@ import Screens from './Screens';
 import {Block, Text, Switch, Button, Image} from '../components';
 import {useData, useTheme, useTranslation} from '../hooks';
 import {IslamicWatch, MenuBlock} from '../components/menu';
+import {SignOut} from '../service/api/Auth-signOut';
+import {GetAuth} from '../service/api/Auth_change';
+import {useDispatch} from 'react-redux';
 
 const Drawer = createDrawerNavigator();
 
@@ -73,7 +76,7 @@ const DrawerContent = (
   const [active, setActive] = useState('Home');
   const {assets, colors, gradients, sizes} = useTheme();
   const labelColor = colors.text;
-
+  const dispatch = useDispatch();
   const handleNavigation = useCallback(
     (to) => {
       setActive(to);
@@ -94,8 +97,14 @@ const DrawerContent = (
   ];
   const list2 = [
     {name: t('screens.settings'), to: 'Setting', icon: assets.settings},
-    {name: t('menu.logout'), to: 'Register', icon: assets.document},
   ];
+  const [user, setUser] = useState({email: ''});
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    async () => {
+      await GetAuth(navigation, setUser, setLoading);
+    };
+  }, []);
   return (
     <DrawerContentScrollView
       {...props}
@@ -126,6 +135,35 @@ const DrawerContent = (
           handleNavigation={handleNavigation}
           header={t('menu.setting')}
         />
+
+        {/* log out */}
+        <Button
+          row
+          justify="flex-start"
+          marginTop={sizes.sm}
+          marginBottom={sizes.s}
+          onPress={() => SignOut(navigation, dispatch)}>
+          <Block
+            flex={0}
+            radius={6}
+            align="center"
+            justify="center"
+            width={sizes.md}
+            height={sizes.md}
+            marginRight={sizes.s}
+            gradient={gradients.white}>
+            <Image
+              radius={0}
+              width={14}
+              height={14}
+              color={colors.black}
+              source={assets.document}
+            />
+          </Block>
+          <Text p color={labelColor}>
+            {t('menu.logout')}
+          </Text>
+        </Button>
         {/* extra item it can be play store switch download watch app */}
         <Button
           row
@@ -133,7 +171,9 @@ const DrawerContent = (
           marginTop={sizes.sm}
           marginBottom={sizes.s}
           onPress={() =>
-            Linking.openURL("https://play.google.com/store/search?q=quran&c=apps&hl=en&gl=US")
+            Linking.openURL(
+              'https://play.google.com/store/search?q=quran&c=apps&hl=en&gl=US',
+            )
           }>
           <Block
             flex={0}
@@ -169,10 +209,7 @@ const DrawerContent = (
         </Block>
         <Block row justify="space-between" marginTop={sizes.sm}>
           <Text color={labelColor}>{t('menu.language')}</Text>
-          <Switch
-            checked={lang}
-            onPress={ ()=> setLang(!lang)}
-          />
+          <Switch checked={lang} onPress={() => setLang(!lang)} />
         </Block>
       </Block>
     </DrawerContentScrollView>

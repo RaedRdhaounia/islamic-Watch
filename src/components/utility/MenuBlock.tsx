@@ -24,7 +24,7 @@ function MenuBlock(props) {
               row
               justify="flex-start"
               marginBottom={sizes.s}
-              onPress={() => handleNavigation(item.to)}>
+              onPress={() =>  handleNavigation(item.to) }>
               <Block
                 flex={0}
                 radius={6}

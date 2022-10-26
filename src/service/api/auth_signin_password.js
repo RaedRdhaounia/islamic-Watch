@@ -1,20 +1,21 @@
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../../server/firebase';
 
-export const CreateAccount = async (
+export const SignIn = async (
   email,
   password,
   setUser,
   setError,
   setLoadingAuth,
 ) => {
-  setLoadingAuth(true)
+  setLoadingAuth(true);
   try {
-    const userCredential = await createUserWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password,
     );
+    console.log("userCredential", userCredential)
     const user = userCredential.user;
     setUser(user);
     setLoadingAuth(false);

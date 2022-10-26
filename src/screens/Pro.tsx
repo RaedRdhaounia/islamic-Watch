@@ -1,39 +1,34 @@
-import React, {useCallback, useEffect} from 'react';
-import {Linking, StatusBar} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Linking} from 'react-native';
 
 import {useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Text} from '../components/';
+import { GetAuth } from '../service/api/Auth_change';
 
 const Pro = () => {
   const {t} = useTranslation();
   const {assets, colors, gradients, sizes} = useTheme();
-
+  const [userDetails, setUserDetails] = useState(null)
   useEffect(() => {
-    StatusBar.setBarStyle('light-content');
-    return () => {
-      StatusBar.setBarStyle('dark-content');
-    };
+    GetAuth(setUserDetails)
   }, []);
-
   const handleWebLink = useCallback((url) => Linking.openURL(url), []);
 
   return (
     <Image
       background
-      source={assets.background}
+      source={assets.background1}
       padding={sizes.padding}
       style={{flex: 1}}>
       <Block safe justify="center">
         <Block card flex={0} padding={sizes.sm} marginBottom={sizes.sm}>
-          <Text h4 center semibold marginBottom={sizes.sm}>
-            {t('pro.title')}
+          <Text h6 center semibold marginBottom={sizes.sm}>
+            {userDetails?.email} 
           </Text>
 
           <Text marginBottom={sizes.padding}>{t('pro.appTemplate')}</Text>
 
-          <Text semibold>{t('pro.components', {count: 11})}</Text>
-          <Text semibold>{t('pro.screens', {count: 18})}</Text>
-          <Text semibold>{t('pro.support')}</Text>
+   
 
           <Text marginVertical={sizes.padding}>{t('pro.saveTime')}</Text>
 
