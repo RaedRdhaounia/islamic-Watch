@@ -6,12 +6,17 @@ import {useData, useTheme, useTranslation} from '../hooks/';
 import * as regex from '../constants/regex';
 import {Block, Button, Input, Image, Text, Checkbox} from '../components/';
 import {RootState} from '../redux/store';
-import loginWithPassword from '../server/auth/authlogIn';
 import {AuthContext} from '../hooks/userAuth';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
 import {auth} from '../server/firebase';
 const isAndroid = Platform.OS === 'android';
-
+WebBrowser.maybeCompleteAuthSession();
 interface IRegistration {
   email: string;
   password: string;
@@ -26,7 +31,18 @@ interface IRegistrationValidation {
 const Register = () => {
   const email = useSelector((state: RootState) => state.user.email);
   const {signIn} = useContext(AuthContext);
-
+  const [loading, setLoading] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+  const [user, setUser] = useState(null);
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId:
+      '192973896078-39cpvnsfs16uhtqunai1pelrfp2mol66.apps.googleusercontent.com',
+    iosClientId:
+      '192973896078-1129qmj4lr1s5n6l85msp1mbj8cbncf7.apps.googleusercontent.com',
+    androidClientId:
+      '192973896078-u5nt72qqqg9mulsnllodl1n6jcnacr8h.apps.googleusercontent.com',
+  });
+  console.log('accessToken', accessToken);
   const [loadingAuth, setLoadingAuth] = useState(false);
   const {isDark} = useData();
   const {t} = useTranslation();
@@ -52,6 +68,23 @@ const Register = () => {
   );
 
   useEffect(() => {
+    async function fetchUserInfo() {
+      let response = await fetch('https://googleapi.com/userinfo/v2/me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const userInfo = await response.json();
+      setUser(userInfo);
+    }
+    if (response?.type === 'success') {
+      console.log('response', response);
+      setAccessToken(response?.authentication?.accessToken);
+    }
+    accessToken && fetchUserInfo();
+  }, [accessToken, response]);
+
+  useEffect(() => {
     setIsValid((state) => ({
       ...state,
       email: regex.email.test(registration.email),
@@ -67,12 +100,10 @@ const Register = () => {
         registration.password,
       );
       const result = response.user;
-      console.log('result', result);
       navigation.navigate('Home', {user: result});
 
       return result;
     } catch (error) {
-      console.log('error', error);
       return null;
     }
     // if we have logged : change auth status and  navigate to distination
@@ -81,7 +112,6 @@ const Register = () => {
     // ---- navigation to home
   }
   function handleSignUp() {
-    console.log('sign up function starts');
     // sing up function
   }
   function handleSumbit() {
@@ -90,6 +120,19 @@ const Register = () => {
     }
     return handleSignUp();
   }
+  const handleLoginWithGmail = async () => {
+    setLoading(true);
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return loadingAuth ? (
     <Block safe marginTop={sizes.md}>
       <Block paddingHorizontal={sizes.s}>
@@ -322,7 +365,7 @@ const Register = () => {
                   outlined
                   gray
                   shadow={!isAndroid}
-                  onPress={() => console.log('google')}>
+                  onPress={() => promptAsync()}>
                   <Image
                     source={assets.google}
                     height={sizes.m}
