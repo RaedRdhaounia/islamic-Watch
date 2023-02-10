@@ -9,31 +9,25 @@ export default function Locationfind({setCurrentLocation}) {
   const [errorMsg, setErrorMsg] = useState()
   useEffect(() => {
     (async () => {
-        try {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-      }
-    
-         let {coords} = await Location.getCurrentPositionAsync();
-      if (coords) {
-        const { latitude, longitude } = coords;
-        let response = await Location.reverseGeocodeAsync({
-          latitude,
-          longitude,
-        });
-        for (let item of response) {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied')}
+        let {coords} = await Location.getCurrentPositionAsync();
+        if (coords) {
+          const { latitude, longitude } = coords;
+          let response = await Location.reverseGeocodeAsync({
+            latitude,
+            longitude});
+        if (response ) {
+          const item = response[0]
           let address = `${item.city}, ${item.region}, ${item.country}`;
           setLocation(address)
-         setCurrentLocation(address)
-        }
-      } 
-      return;
-    } catch (error) {
-       console.log("error", error)
-      }
-     
-    })();
+          setCurrentLocation(address)}} 
+      return coords}
+    catch (error) {
+      console.log("error", error)}}
+  )();
   }, []);
 
   let text = 'Waiting..';

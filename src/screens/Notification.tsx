@@ -1,6 +1,6 @@
 import React from 'react';
-import {Dimensions, FlatList, View} from 'react-native';
-import {Block, Text} from '../components';
+import {Dimensions, FlatList} from 'react-native';
+import {Block} from '../components';
 import NotificationItem from '../components/NotificationItem';
 import {useTheme} from '../hooks';
 

@@ -3,14 +3,13 @@ import {Linking} from 'react-native';
 
 import {useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Text} from '../components/';
-import { GetAuth } from '../service/api/Auth_change';
 
 const Pro = () => {
   const {t} = useTranslation();
   const {assets, colors, gradients, sizes} = useTheme();
-  const [userDetails, setUserDetails] = useState(null)
+  const [userDetails, setUserDetails] = useState(null);
   useEffect(() => {
-    GetAuth(setUserDetails)
+    // get auth when component will amount for user details
   }, []);
   const handleWebLink = useCallback((url) => Linking.openURL(url), []);
 
@@ -23,12 +22,10 @@ const Pro = () => {
       <Block safe justify="center">
         <Block card flex={0} padding={sizes.sm} marginBottom={sizes.sm}>
           <Text h6 center semibold marginBottom={sizes.sm}>
-            {userDetails?.email} 
+            {userDetails?.email}
           </Text>
 
           <Text marginBottom={sizes.padding}>{t('pro.appTemplate')}</Text>
-
-   
 
           <Text marginVertical={sizes.padding}>{t('pro.saveTime')}</Text>
 

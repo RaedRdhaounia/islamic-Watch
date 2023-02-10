@@ -13,9 +13,7 @@ import Screens from './Screens';
 import {Block, Text, Switch, Button, Image} from '../components';
 import {useData, useTheme, useTranslation} from '../hooks';
 import {IslamicWatch, MenuBlock} from '../components/menu';
-import {SignOut} from '../service/api/Auth-signOut';
-import {GetAuth} from '../service/api/Auth_change';
-import {useDispatch} from 'react-redux';
+import {logOut} from '../server/auth';
 
 const Drawer = createDrawerNavigator();
 
@@ -76,7 +74,6 @@ const DrawerContent = (
   const [active, setActive] = useState('Home');
   const {assets, colors, gradients, sizes} = useTheme();
   const labelColor = colors.text;
-  const dispatch = useDispatch();
   const handleNavigation = useCallback(
     (to) => {
       setActive(to);
@@ -98,13 +95,7 @@ const DrawerContent = (
   const list2 = [
     {name: t('screens.settings'), to: 'Setting', icon: assets.settings},
   ];
-  const [user, setUser] = useState({email: ''});
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    async () => {
-      await GetAuth(navigation, setUser, setLoading);
-    };
-  }, []);
+
   return (
     <DrawerContentScrollView
       {...props}
@@ -142,7 +133,10 @@ const DrawerContent = (
           justify="flex-start"
           marginTop={sizes.sm}
           marginBottom={sizes.s}
-          onPress={() => SignOut(navigation, dispatch)}>
+          onPress={() => {
+            logOut();
+            navigation.navigate('logIn');
+          }}>
           <Block
             flex={0}
             radius={6}
