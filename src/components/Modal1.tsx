@@ -3,6 +3,11 @@ import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import { COLORS } from '../constants/light';
 import Calender from './Calender';
 
+type props ={
+  show: boolean;
+  setShow: any;
+  setStatisticsDay: any;
+}
 const Modal1 = ({show, setShow, setStatisticsDay}) => {
   return (
     <Modal

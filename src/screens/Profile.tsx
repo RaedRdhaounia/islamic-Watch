@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Platform, Linking, TouchableOpacity, View} from 'react-native';
+import {Linking, TouchableOpacity, View, Alert, StyleSheet} from 'react-native';
 import {Ionicons, AntDesign} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
 import * as ImagePicker from 'expo-image-picker';
@@ -16,20 +16,16 @@ const Profile = () => {
   const navigation = useNavigation();
   const {assets, colors, sizes, icons} = useTheme();
 
-  const handleSocialLink = useCallback(
-    (type: 'twitter' | 'facebook') => {
-      const url =
-        type === 'twitter' ? `https://twitter.com/` : `https://facebook.com/`;
-
-      try {
-        Linking.openURL(url);
-      } catch (error) {
-        alert(`Cannot open URL: ${url}`);
-      }
-    },
-    [user],
-  );
-  const [backgroundImage, setBackgroundImage] = useState(icons.background);
+  const handleSocialLink = useCallback((type: 'twitter' | 'facebook') => {
+    const url =
+      type === 'twitter' ? 'https://twitter.com/' : 'https://facebook.com/';
+    try {
+      Linking.openURL(url);
+    } catch (error) {
+      Alert.alert(`Cannot open URL: ${url}`);
+    }
+  }, []);
+  const [backgroundImage] = useState(icons.background);
   const [userProfile, setUserProfile] = useState(user?.avatar);
   const [changeUserName, setChangeUserName] = useState(false);
   const [userName, setUserName] = useState('user name');
@@ -75,7 +71,7 @@ const Profile = () => {
                   {changeUserName ? (
                     <AntDesign
                       name="check"
-                      style={{position: 'absolute', right: -280}}
+                      style={styles.checkStyle}
                       size={24}
                       color="black"
                     />
@@ -84,7 +80,7 @@ const Profile = () => {
                       size={18}
                       name="settings"
                       color={colors.black}
-                      style={{position: 'absolute', right: -280}}
+                      style={styles.checkStyle}
                     />
                   )}
                 </TouchableOpacity>
@@ -114,14 +110,14 @@ const Profile = () => {
                 ) : (
                   <Input
                     label="user name"
-                    style={{width: '100%'}}
+                    style={styles.maxWidth}
                     white
                     onChangeText={(newtext) => setUserName(newtext)}
                   />
                 )}
               </View>
               {/* location component */}
-              <Locationfind />
+              <Locationfind setCurrentLocation={undefined} />
               {/* social media component */}
               <Block row marginVertical={sizes.m}>
                 <Button
@@ -187,5 +183,8 @@ const Profile = () => {
     </Block>
   );
 };
-
+const styles = StyleSheet.create({
+  checkStyle: {position: 'absolute', right: -280},
+  maxWidth: {width: '100%'},
+});
 export default Profile;

@@ -5,10 +5,9 @@ import Block from './Block';
 import Image from './Image';
 import Text from './Text';
 
-function NotificationItem({item}) {
+function NotificationItem() {
     const {sizes, gradients, assets} = useTheme()
     const width = Dimensions.get("screen").width
-    console.log(item)
   return (
     <Block marginTop={10} center width={width}  >
       <Block

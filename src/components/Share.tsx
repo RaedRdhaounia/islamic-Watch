@@ -18,7 +18,7 @@ const Share = () => {
       row={isHorizontal}
       marginBottom={sizes.sm}
       width={isHorizontal ? CARD_WIDTH * 2 + sizes.sm : CARD_WIDTH}>
-              <Block
+      <Block
         paddingTop={sizes.s}
         justify="space-between"
         paddingLeft={isHorizontal ? sizes.sm : 0}
@@ -26,15 +26,14 @@ const Share = () => {
         <Text p marginBottom={sizes.s}>
           share with friends your badges owner and see there reflextion !!!
         </Text>
-
       </Block>
       <TouchableOpacity style={{justifyContent:"center"}}>
-          <Block row flex={0} justify="center">
-            <Text
-              p
-              color={colors.link}
-              semibold     
-              size={sizes.linkSize}
+        <Block row flex={0} justify="center">
+          <Text
+            p
+            color={colors.link}
+            semibold
+            size={sizes.linkSize}
               marginRight={sizes.s}>
               {t('common.share')}
             </Text>

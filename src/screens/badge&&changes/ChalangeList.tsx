@@ -21,7 +21,6 @@ const ChalangeList = ({type, linkLabel}: IProduct) => {
   useEffect(() => {
     (async () => {
       const { status } = await Contacts.requestPermissionsAsync();
-      console.log("status", status)
       if (status === 'granted') {
         const { data } = await Contacts.getContactsAsync({
           fields: [Contacts.Fields.Emails, Contacts.Fields.FirstName, Contacts.Fields.LastName, Contacts.Fields.PhoneNumbers],
@@ -29,7 +28,6 @@ const ChalangeList = ({type, linkLabel}: IProduct) => {
 
         if (data.length > 0) {
           const contact = data[0];
-          console.log(contact);
           setContactList(data)
         }
         else {
@@ -71,9 +69,9 @@ const ChalangeList = ({type, linkLabel}: IProduct) => {
               <Text size={sizes.s}>descreption</Text>
               <Block row={true}>
                 {el?.friends &&
-                  el.friends.map((friend) => {
+                  el.friends.map((friend, index) => {
                     return (
-                      <Text paddingRight={5} size={sizes.base}>
+                      <Text key={index} paddingRight={5} size={sizes.base}>
                         {friend}
                       </Text>
                     );

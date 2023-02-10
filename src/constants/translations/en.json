@@ -66,6 +66,7 @@
     "register": "Create account",
     "Badge": "Badge",
     "Chalange": "Chalange",
+    "map": "Maps",
     "extra": "Extra - Automotive"
   },
   "navigation": {
@@ -79,6 +80,7 @@
     "booking": "Booking",
     "chat": "Chat",
     "profile": "Profile",
+    "map": "Maps",
     "settings": "Settings",
     "notifications": "Notifications",
     "agreement": "User Agreement",

@@ -40,10 +40,11 @@ function Post() {
           justify="space-between"
           paddingLeft={isHorizontal ? sizes.sm : 0}>
           <Input
-          value={postText}
-          onChangeText={(newtext) => setPostText(newtext)}
-           label="add your post" 
-           placeholder="put your post here" />
+            value={postText}
+            onChangeText={(newtext) => setPostText(newtext)}
+            label="add your post"
+            placeholder="put your post here"
+          />
         </Block>
       </View>
       <TouchableOpacity

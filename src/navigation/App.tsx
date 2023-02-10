@@ -9,7 +9,6 @@ import {useData, ThemeProvider, TranslationProvider} from '../hooks';
 
 export default () => {
   const {isDark, theme, setTheme} = useData();
-
   /* set the status bar based on isDark constant */
   useEffect(() => {
     Platform.OS === 'android' && StatusBar.setTranslucent(true);
@@ -50,7 +49,7 @@ export default () => {
     <TranslationProvider>
       <ThemeProvider theme={theme} setTheme={setTheme}>
         <NavigationContainer theme={navigationTheme}>
-          <Menu />
+          <Menu/>
         </NavigationContainer>
       </ThemeProvider>
     </TranslationProvider>

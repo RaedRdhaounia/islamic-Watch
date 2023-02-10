@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import {useTheme, useTranslation} from '../hooks';
 import Block from './Block';
 import Button from './Button';
@@ -27,7 +27,7 @@ function Album(props) {
           </Text>
         ) : null}
         {nav ? (
-          <Button onPress={() => navigation.navigate("Pictures")}>
+          <Button onPress={() => navigation.navigate('Pictures')}>
             <Text p primary semibold>
               {t('common.viewall')}
             </Text>
@@ -35,65 +35,63 @@ function Album(props) {
         ) : null}
       </Block>
       <View>
-    <Block row justify="space-between" wrap="wrap">
-        <Image
-          resizeMode="cover"
-          source={assets?.photo1}
-          style={{
-            width: IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2,
-            height: IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN,
-          }}
-        />
-         <Block marginLeft={sizes.m}>
+        <Block row justify="space-between" wrap="wrap">
           <Image
             resizeMode="cover"
-            source={assets?.photo2}
-            marginBottom={IMAGE_VERTICAL_MARGIN}
-            style={{
-              height: IMAGE_VERTICAL_SIZE,
-              width: IMAGE_VERTICAL_SIZE,
-            }}
+            source={assets?.photo1}
+            width={IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2}
+            height={IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN}
           />
+          <Block marginLeft={sizes.m}>
+            <Image
+              resizeMode="cover"
+              source={assets?.photo2}
+              marginBottom={IMAGE_VERTICAL_MARGIN}
+              style={{
+                height: IMAGE_VERTICAL_SIZE,
+                width: IMAGE_VERTICAL_SIZE,
+              }}
+            />
+            <Image
+              resizeMode="cover"
+              source={assets?.photo3}
+              style={{
+                height: IMAGE_VERTICAL_SIZE,
+                width: IMAGE_VERTICAL_SIZE,
+              }}
+            />
+          </Block>
+        </Block>
+
+        <Block row justify="space-between" wrap="wrap">
           <Image
             resizeMode="cover"
             source={assets?.photo3}
             style={{
-              height: IMAGE_VERTICAL_SIZE,
-              width: IMAGE_VERTICAL_SIZE,
+              width: IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2,
+              height: IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN,
             }}
           />
+          <Block marginLeft={sizes.m}>
+            <Image
+              resizeMode="cover"
+              source={assets?.photo1}
+              marginBottom={IMAGE_VERTICAL_MARGIN}
+              style={{
+                height: IMAGE_VERTICAL_SIZE,
+                width: IMAGE_VERTICAL_SIZE,
+              }}
+            />
+            <Image
+              resizeMode="cover"
+              source={assets?.photo2}
+              style={{
+                height: IMAGE_VERTICAL_SIZE,
+                width: IMAGE_VERTICAL_SIZE,
+              }}
+            />
+          </Block>
         </Block>
-      </Block>
-        
-      <Block row justify="space-between" wrap="wrap">
-        <Image
-          resizeMode="cover"
-          source={assets?.photo3}
-          style={{
-            width: IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2,
-            height: IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN,
-          }}
-        />
-        <Block marginLeft={sizes.m}>
-          <Image
-            resizeMode="cover"
-            source={assets?.photo1}
-            marginBottom={IMAGE_VERTICAL_MARGIN}
-            style={{
-              height: IMAGE_VERTICAL_SIZE,
-              width: IMAGE_VERTICAL_SIZE,
-            }}
-          />
-          <Image
-            resizeMode="cover"
-            source={assets?.photo2}
-            style={{
-              height: IMAGE_VERTICAL_SIZE,
-              width: IMAGE_VERTICAL_SIZE,
-            }}
-          />
-        </Block>
-      </Block> 
       </View>
     </Block>
   );

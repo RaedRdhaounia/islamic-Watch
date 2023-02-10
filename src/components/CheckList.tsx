@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {useTheme, useTranslation} from '../hooks';
 import Block from './Block';
 import Checkbox from './Checkbox';
@@ -105,7 +105,7 @@ function CheckList({setRank}) {
       setRank(checkedSalat.length);
     };
     Calculate();
-  }, [rank1, rank2, rank3, rank4, rank5]);
+  }, [rank1, rank2, rank3, rank4, rank5, ]);
   return (
     <Block
       card

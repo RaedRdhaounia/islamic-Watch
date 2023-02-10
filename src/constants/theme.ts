@@ -34,7 +34,7 @@ export const WEIGHTS: ThemeWeights = {
 export const ICONS: ThemeIcons = {
   apple: require('../assets/icons/apple.png'),
   google: require('../assets/icons/google.png'),
-  facebook: require('../assets/icons/facebook.png'),
+    facebook: require('../assets/icons/facebook.png'),
   arrow: require('../assets/icons/arrow.png'),
   articles: require('../assets/icons/articles.png'),
   badge: require('../assets/icons/badge.png'),
