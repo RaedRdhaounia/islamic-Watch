@@ -1,9 +1,18 @@
 {
   "expo": {
-    "name": "rn-soft-ui-kit-free",
-    "slug": "rn-soft-ui-kit-free",
+    "name": "islamic_watch",
+    "slug": "islamic_watch",
+    "scheme": "myapp",
     "description": "React Native - Soft UI Kit - Free",
     "primaryColor": "#CB0C9F",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,9 +28,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.islamicwatch.test",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": [
+          "lyft"
+        ]
+      }
     },
     "android": {
+      "package": "com.islamicwatch.test",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#CB0C9F"
@@ -31,7 +47,14 @@
       "favicon": "./assets/favicon.png"
     },
     "packagerOpts": {
-      "sourceExts": ["cjs"]
+      "sourceExts": [
+        "cjs"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "14de3e55-b865-46da-898c-84462e617300"
+      }
     }
   }
 }
